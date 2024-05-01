@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
 import webapp.restapi.dsmtt.jwttokenfiles.JwtTokenUtil;
 import webapp.restapi.dsmtt.jwttokenfiles.JwtUserDetailsService;
 import webapp.restapi.dsmtt.models.LoginRequest;
@@ -19,6 +20,7 @@ import webapp.restapi.dsmtt.models.LoginResponse;
 import webapp.restapi.dsmtt.models.User;
 import webapp.restapi.dsmtt.repo.UserRepository;
 
+@Slf4j
 @Service
 public class AuthService {
 	
@@ -40,6 +42,7 @@ public class AuthService {
 	{
 		
 		try {
+			
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginReq.getEmail(), loginReq.getPassword()));
 
@@ -49,9 +52,14 @@ public class AuthService {
             
             String token = jwtTokenUtil.generateToken(userDetails);
             
-            return ResponseEntity.ok(new LoginResponse(token));
-        } catch (BadCredentialsException e) {
+            log.info("User logged in successfully: {}", userDetails.getUsername());
             
+            return ResponseEntity.ok(new LoginResponse(token));
+        
+		} catch (BadCredentialsException e) {
+        	
+        	log.error("Invalid email or password for login request: {}", loginReq.getEmail());
+        	
         	return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
         
         }
@@ -59,9 +67,10 @@ public class AuthService {
 	
 	public User register(User newUser)
 	{
-		System.out.println(newUser);
+		log.info("Registering new user: {}", newUser.getEmail());
 		
 		newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+		
 		return userRepo.save(newUser);
 	}
 	
