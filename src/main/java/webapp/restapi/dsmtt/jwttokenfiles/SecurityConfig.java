@@ -18,14 +18,8 @@ public class SecurityConfig {
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	
-//	@Autowired
-//	private UserDetailsService jwtUserDetailsService;
-	
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
-	
-//	@Autowired
-//	private PasswordEncoder passwordEncoder;
 	
 	@Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration builder) throws Exception {
@@ -47,14 +41,6 @@ public class SecurityConfig {
                 .and().exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        
-//        http.csrf().disable()
-//        .authorizeRequests().requestMatchers("/auth/login", "/auth/register").permitAll()
-//        .anyRequest().authenticated()
-//        .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//    
-//    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         
         return http.build();
     }

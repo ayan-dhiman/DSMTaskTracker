@@ -12,7 +12,9 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class JwtTokenUtil {
 
@@ -43,6 +45,7 @@ public class JwtTokenUtil {
     }
 
     public String generateToken(UserDetails userDetails) {
+    	log.info("Generating JWT token for user: {}", userDetails.getUsername());
         Map<String, Object> claims = new HashMap<>();
         return doGenerateToken(claims, userDetails.getUsername());
     }
@@ -55,6 +58,7 @@ public class JwtTokenUtil {
     
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
+        log.debug("Validating JWT token for user: {}", username);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
     
