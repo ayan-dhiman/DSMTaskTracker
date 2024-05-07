@@ -1,6 +1,5 @@
 package webapp.restapi.dsmtt.services;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +18,19 @@ public class TaskService {
 	
 	public List<Task> getTasksByUserId(String userId)
 	{
+		log.info("Finding all tasks for user: {}", userId);
 		return taskRepo.findAllByUserId(userId);
 	}
 	
-	public List<Task> getCurrentDayTasks(String userId, LocalDate currentDate)
+	public List<Task> getCurrentDayTasks(String userId, String currentDate)
 	{
+		log.info("Finding all tasks for user '{}' with date: {}", userId, currentDate);
 		return taskRepo.findAllByUserIdAndDate(userId, currentDate);
 	}
 	
 	public Task addTask(Task newTask)
-	{
+	{	
+		log.info("Adding new task: {}", newTask);
 		return taskRepo.save(newTask);
 	}
 	

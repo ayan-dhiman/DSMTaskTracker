@@ -1,6 +1,5 @@
 package webapp.restapi.dsmtt.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class TaskController {
 
 	@PostMapping
 	public Task addTask(@RequestBody Task newTask)
-	{
+	{		
 		return taskService.addTask(newTask);
 	}
 	
@@ -37,7 +36,7 @@ public class TaskController {
 	}
 	
 	@GetMapping("/date/{userId}")
-	public List<Task> getAllTaskByIdAndDate(@PathVariable String userId, @RequestParam LocalDate date)
+	public List<Task> getAllTaskByIdAndDate(@PathVariable String userId, @RequestParam String date)
 	{
 		return taskService.getCurrentDayTasks(userId, date);
 	}
