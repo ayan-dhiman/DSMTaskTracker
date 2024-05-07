@@ -1,8 +1,5 @@
 package webapp.restapi.dsmtt.models;
 
-
-import java.time.LocalDate;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,7 +13,7 @@ public class Task {
 	private String taskId;
 	private String task;
 	private String status;
-	private LocalDate date;
+	private String date;
 	private String userId;
 	
 }

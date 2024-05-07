@@ -16,16 +16,20 @@ public class TeamService {
 	
 	public Team addTeam(Team newTeam)
 	{
+		log.info("Adding new team: {}", newTeam);
 		return teamRepo.save(newTeam);
 	}
 	
 	public List<Team> getAllTeams()
 	{
+		log.info("Sending all teams");
 		return teamRepo.findAll();
 	}
 	
 	public Team updateTeamName(String teamId, Team updatedTeam)
 	{
+		log.info("Updating team with id: {}", teamId);
+		
 		Team existingTeam = teamRepo.findById(teamId).orElse(null);
 		
 		if (existingTeam != null) {
@@ -36,7 +40,7 @@ public class TeamService {
 			return teamRepo.save(existingTeam);
 		} else {
 			
-			log.error("Task not found with id: {}", teamId);
+			log.error("Team not found with id: {}", teamId);
 			
 			return null;
 		}
@@ -44,12 +48,12 @@ public class TeamService {
 
 	public boolean deleteTeam(String teamId)
 	{
-		log.info("Deleting task with id: {}", teamId);
+		log.info("Deleting team with id: {}", teamId);
 		if (teamRepo.findById(teamId) != null) {
 			teamRepo.deleteById(teamId);
 			return true;
 		}
-		log.error("Task not found with id: {}", teamId);
+		log.error("Team not found with id: {}", teamId);
 		return false;
 	}
 	
