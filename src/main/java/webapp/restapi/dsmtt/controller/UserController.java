@@ -24,11 +24,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping
-	public User addUser(@RequestBody User newUser)
-	{
-		return userService.createUser(newUser);
-	}
+//	@PostMapping
+//	public User addUser(@RequestBody User newUser)
+//	{
+//		return userService.createUser(newUser);
+//	}
 	
 	@GetMapping("/{userId}")
 	public User getUserById(@PathVariable String userId)
