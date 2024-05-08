@@ -1,6 +1,7 @@
 package webapp.restapi.dsmtt.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,22 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepo;
 
+//	public User getUserById(String id) {
+//		
+//		log.info("Fetching user by id: {}", id);
+//		
+//		return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found with user id : " + id));
+//	
+//	}
+	
 	public User getUserById(String id) {
-		
-		log.info("Fetching user by id: {}", id);
-		
-		return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found with id : " + id));
+	    log.info("Fetching user by id: {}", id);
+	    Optional<User> optionalUser = userRepo.findById(id);
+	    if (optionalUser.isPresent()) {
+	        return optionalUser.get();
+	    } else {
+	        return null;
+	    }
 	}
 
 	public User getUserByEmail(String email) {
@@ -41,7 +53,7 @@ public class UserService {
 		
 		log.info("Updating user with id: {}", id);
 		
-		User existingUser = userRepo.findById(id).orElse(null);
+		User existingUser = getUserById(id);
 		if (existingUser != null) {
 			if (updatedUser.getEmail() != null) {
 				existingUser.setEmail(updatedUser.getEmail());
