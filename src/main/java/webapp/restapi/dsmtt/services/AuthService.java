@@ -65,13 +65,13 @@ public class AuthService {
         }
 	}
 	
-	public User register(User newUser)
+	public void register(User newUser)
 	{
 		log.info("Registering new user: {}", newUser.getEmail());
 		
 		newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 		
-		return userRepo.save(newUser);
+		userRepo.save(newUser);
 	}
 	
 }
