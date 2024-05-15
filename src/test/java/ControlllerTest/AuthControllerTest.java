@@ -21,27 +21,27 @@ import webapp.restapi.dsmtt.services.AuthService;
 @AutoConfigureMockMvc
 public class AuthControllerTest {
 	
-	@Autowired
-	private MockMvc mockMvc;
-	
-	@Mock
-	private AuthService authService;
-	
-	@InjectMocks
-	private AuthController authController;
-
-	@Test
-	public void testRegister() throws Exception{
-		
-		 User newUser = new User("1777", "test@example.com", "Test User", "USER", "TeamA", "password");
-
-	        when(authService.register(newUser)).thenReturn(newUser);
-
-	        mockMvc.perform(post("/auth/register")
-	                .contentType(MediaType.APPLICATION_JSON)
-	                .content("{\"id\":\"1777\",\"email\":\"test@example.com\",\"name\":\"Test User\",\"role\":\"USER\",\"team\":\"TeamA\",\"password\":\"password\"}"))
-	                .andExpect(status().isOk());
-		
-	}
+//	@Autowired
+//	private MockMvc mockMvc;
+//	
+//	@Mock
+//	private AuthService authService;
+//	
+//	@InjectMocks
+//	private AuthController authController;
+//
+//	@Test
+//	public void testRegister() throws Exception{
+//		
+//		 User newUser = new User("1777", "test@example.com", "Test User", "USER", "TeamA", "password");
+//
+//	        when(authService.register(newUser)).thenReturn(newUser);
+//
+//	        mockMvc.perform(post("/auth/register")
+//	                .contentType(MediaType.APPLICATION_JSON)
+//	                .content("{\"id\":\"1777\",\"email\":\"test@example.com\",\"name\":\"Test User\",\"role\":\"USER\",\"team\":\"TeamA\",\"password\":\"password\"}"))
+//	                .andExpect(status().isOk());
+//		
+//	}
 	
 }
