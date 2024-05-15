@@ -73,5 +73,18 @@ public class AuthService {
 		
 		userRepo.save(newUser);
 	}
+
+	public boolean verifyEmail(String email) {
+		
+		log.info("Verifying email: {}", email);
+		
+		if (userRepo.findByEmail(email) != null) {
+			log.info("Email already registered : {}", email);
+			return true;
+		}
+		
+		log.info("Email is not registered: {}", email);
+		return false;
+	}
 	
 }
