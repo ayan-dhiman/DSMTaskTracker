@@ -20,10 +20,10 @@ public class TeamService {
 		return teamRepo.save(newTeam);
 	}
 	
-	public List<Team> getAllTeams()
+	public List<Team> getAllTeams(String userId)
 	{
 		log.info("Sending all teams");
-		return teamRepo.findAll();
+		return teamRepo.findAllbyUserId(userId);
 	}
 	
 	public Team updateTeamName(String teamId, Team updatedTeam)

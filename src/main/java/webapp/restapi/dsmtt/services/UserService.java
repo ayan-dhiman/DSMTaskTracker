@@ -16,14 +16,9 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepo;
-
-//	public User getUserById(String id) {
-//		
-//		log.info("Fetching user by id: {}", id);
-//		
-//		return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found with user id : " + id));
-//	
-//	}
+	
+	@Autowired
+	private ActivityService activityService;
 	
 	public User getUserById(String id) {
 	    log.info("Fetching user by id: {}", id);
@@ -70,7 +65,8 @@ public class UserService {
 			if (updatedUser.getTeam() != null) {
 				existingUser.setTeam(updatedUser.getTeam());
 			}
-
+			activityService.addActivity("Update Account Details", id );
+			
 			return userRepo.save(existingUser);
 		} else {
 			

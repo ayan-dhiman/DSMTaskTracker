@@ -16,6 +16,9 @@ public class TaskService {
 	@Autowired
 	private TaskRepository taskRepo;
 	
+	@Autowired
+	private ActivityService activityService;
+	
 	public List<Task> getTasksByUserId(String userId)
 	{
 		log.info("Finding all tasks for user: {}", userId);
@@ -31,6 +34,9 @@ public class TaskService {
 	public Task addTask(Task newTask)
 	{	
 		log.info("Adding new task: {}", newTask);
+		
+		activityService.addActivity(("Added Task - "+newTask.getTask()), newTask.getUserId());
+		
 		return taskRepo.save(newTask);
 	}
 	
@@ -39,6 +45,7 @@ public class TaskService {
 		log.info("Updating task with id: {}", taskId);
 		
 		Task existingTask = taskRepo.findById(taskId).orElse(null);
+		String existTask = existingTask.getTask();
 		if (existingTask != null) {
 			if (updatedTask.getTask() != null) {
 				existingTask.setTask(updatedTask.getTask());
@@ -46,6 +53,8 @@ public class TaskService {
 			if (updatedTask.getStatus() != null) {
 				existingTask.setStatus(updatedTask.getStatus());
 			}
+			
+			activityService.addActivity(("Updated Task - "+existTask+" to - "+existingTask.getTask()), existingTask.getUserId());
 
 			return taskRepo.save(existingTask);
 		} else {
@@ -59,7 +68,9 @@ public class TaskService {
 	public boolean deleteTask(String taskId)
 	{
 		log.info("Deleting task with id: {}", taskId);
-		if (taskRepo.findById(taskId) != null) {
+		Task task = taskRepo.findById(taskId).get();
+		if (task != null) {
+			activityService.addActivity(("Deleted Task - "+task.getTask()), task.getUserId());
 			taskRepo.deleteById(taskId);
 			return true;
 		}
