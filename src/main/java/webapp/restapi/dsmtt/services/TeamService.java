@@ -2,6 +2,7 @@ package webapp.restapi.dsmtt.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import webapp.restapi.dsmtt.repo.TeamRepository;
 @Service
 public class TeamService {
 
+	@Autowired
 	private TeamRepository teamRepo;
 	
 	public Team addTeam(Team newTeam)
@@ -20,10 +22,16 @@ public class TeamService {
 		return teamRepo.save(newTeam);
 	}
 	
-	public List<Team> getAllTeams(String userId)
+//	public List<Team> getAllTeamsByUser(String userId)
+//	{
+//		log.info("Sending all teams");
+//		return teamRepo.findAllByUserId(userId);
+//	}
+	
+	public List<Team> getAllTeams()
 	{
 		log.info("Sending all teams");
-		return teamRepo.findAllbyUserId(userId);
+		return teamRepo.findAll();
 	}
 	
 	public Team updateTeamName(String teamId, Team updatedTeam)

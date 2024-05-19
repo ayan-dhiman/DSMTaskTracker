@@ -30,10 +30,16 @@ public class TeamController {
 		return teamService.addTeam(newTeam);
 	}
 	
-	@GetMapping("/{userId}")
-	public List<Team> getTeams(String userId)
+//	@GetMapping("/{userId}")
+//	public List<Team> getTeamsByUser(String userId)
+//	{
+//		return teamService.getAllTeamsByUser(userId);
+//	}
+	
+	@GetMapping
+	public List<Team> getTeams()
 	{
-		return teamService.getAllTeams(userId);
+		return teamService.getAllTeams();
 	}
 	
 	@PutMapping("/{teamId}")

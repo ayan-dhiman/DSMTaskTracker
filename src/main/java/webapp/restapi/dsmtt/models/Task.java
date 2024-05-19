@@ -17,4 +17,6 @@ public class Task {
 	private String status;
 	private String date;
 	private String userId;
+	private String team;
+	private String comment;
 }

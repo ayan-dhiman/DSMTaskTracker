@@ -60,10 +60,6 @@ public class AuthService {
             String token = jwtTokenUtil.generateToken(userDetails);
             
             log.info("User logged in successfully: {}", userDetails.getUsername());
-               
-            String userId = (userRepo.findByEmail(loginReq.getEmail())).getId();
-            
-            activityService.addActivity("Successfuly Logged-In", userId );
             
             return ResponseEntity.ok(new LoginResponse(token));
         
