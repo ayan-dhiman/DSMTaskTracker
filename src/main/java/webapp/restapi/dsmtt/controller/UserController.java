@@ -56,6 +56,12 @@ public class UserController {
 	    return userService.updateUser(userId, updatedUser);
 	}
 	
+	@PutMapping("/email/{email}")
+	public User updateUserByEmail(@PathVariable String email, @RequestBody User updatedUser)
+	{
+	    return userService.updateUserByEmaiil(email, updatedUser);
+	}
+	
 	@GetMapping("/team")
 	public List<User> getUsersInSameTeam(@RequestParam String team)
 	{

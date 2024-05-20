@@ -9,7 +9,7 @@ import webapp.restapi.dsmtt.models.Team;
 
 @Repository
 public interface TeamRepository extends MongoRepository<Team, String> {
-
-	List<Team> findAllbyUserId(String userId);
+	
+	List<Team> findAllByUserId(String userId);
 
 }
