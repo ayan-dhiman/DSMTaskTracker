@@ -1,5 +1,8 @@
 package webapp.restapi.dsmtt.services;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import webapp.restapi.dsmtt.jwttokenfiles.JwtTokenUtil;
 import webapp.restapi.dsmtt.jwttokenfiles.JwtUserDetailsService;
+import webapp.restapi.dsmtt.models.Activity;
 import webapp.restapi.dsmtt.models.LoginRequest;
 import webapp.restapi.dsmtt.models.LoginResponse;
 import webapp.restapi.dsmtt.models.User;
@@ -35,6 +39,9 @@ public class AuthService {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private ActivityService activityService;
 	
 	private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
