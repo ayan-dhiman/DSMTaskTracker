@@ -16,38 +16,38 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Autowired
 	private ActivityService activityService;
-	
+
 	public User getUserById(String id) {
-	    log.info("Fetching user by id: {}", id);
-	    Optional<User> optionalUser = userRepo.findById(id);
-	    if (optionalUser.isPresent()) {
-	        return optionalUser.get();
-	    } else {
-	        return null;
-	    }
+		log.info("Fetching user by id: {}", id);
+		Optional<User> optionalUser = userRepo.findById(id);
+		if (optionalUser.isPresent()) {
+			return optionalUser.get();
+		} else {
+			return null;
+		}
 	}
 
 	public User getUserByEmail(String email) {
-		
+
 		log.info("Fetching user by email: {}", email);
-		 
+
 		return userRepo.findByEmail(email);
 	}
 
 	public User createUser(User newUser) {
-		
+
 		log.info("Creating new user: {}", newUser.getEmail());
-		
+
 		return userRepo.save(newUser);
 	}
 
 	public User updateUser(String id, User updatedUser) {
-		
+
 		log.info("Updating user with id: {}", id);
-		
+
 		User existingUser = getUserById(id);
 		if (existingUser != null) {
 			if (updatedUser.getEmail() != null) {
@@ -65,13 +65,45 @@ public class UserService {
 			if (updatedUser.getTeam() != null) {
 				existingUser.setTeam(updatedUser.getTeam());
 			}
-			activityService.addActivity("Update Account Details", id );
-			
+			activityService.addActivity("Update Account Details", id);
+
 			return userRepo.save(existingUser);
 		} else {
-			
+
 			log.error("User not found with id: {}", id);
-			
+
+			return null;
+		}
+	}
+
+	public User updateUserByEmaiil(String email, User updatedUser) {
+
+		log.info("Updating user with email: {}", email);
+
+		User existingUser = getUserByEmail(email);
+		if (existingUser != null) {
+			if (updatedUser.getEmail() != null) {
+				existingUser.setEmail(updatedUser.getEmail());
+			}
+			if (updatedUser.getName() != null) {
+				existingUser.setName(updatedUser.getName());
+			}
+			if (updatedUser.getPassword() != null) {
+				existingUser.setPassword(updatedUser.getPassword());
+			}
+			if (updatedUser.getRole() != null) {
+				existingUser.setRole(updatedUser.getRole());
+			}
+			if (updatedUser.getTeam() != null) {
+				existingUser.setTeam(updatedUser.getTeam());
+			}
+			activityService.addActivity("Update Account Details", email);
+
+			return userRepo.save(existingUser);
+		} else {
+
+			log.error("User not found with id: {}", email);
+
 			return null;
 		}
 	}
@@ -85,11 +117,11 @@ public class UserService {
 		log.error("User not found with id: {}", userId);
 		return false;
 	}
-	
-	public List<User> getUsersInSameTeam(String team){
-		
+
+	public List<User> getUsersInSameTeam(String team) {
+
 		log.info("Fetching users in the same team: {}", team);
-		
+
 		return userRepo.findAllByTeam(team);
 	}
 

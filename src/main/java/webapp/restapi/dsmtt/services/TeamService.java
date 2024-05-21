@@ -31,7 +31,8 @@ public class TeamService {
 	public List<Team> getAllTeams()
 	{
 		log.info("Sending all teams");
-		return teamRepo.findAll();
+		System.out.println(userId+"-->"+teamRepo.findAllByUserId(userId));
+		return teamRepo.findAllByUserId(userId);
 	}
 	
 	public Team updateTeamName(String teamId, Team updatedTeam)
