@@ -31,8 +31,9 @@ public class TeamController {
 	}
 	
 	@GetMapping("/{userId}")
-	public List<Team> getTeams(String userId)
+	public List<Team> getTeams(@PathVariable String userId)
 	{
+		System.out.println("Got UserId as"+userId);
 		return teamService.getAllTeams(userId);
 	}
 	

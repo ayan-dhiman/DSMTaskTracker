@@ -13,7 +13,6 @@ public class Team {
 	@Id
 	private String teamId;
 	
-	@Indexed(unique = true)
 	private String name;
 	
 	private String userId;

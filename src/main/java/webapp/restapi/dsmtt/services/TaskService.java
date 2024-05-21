@@ -53,6 +53,12 @@ public class TaskService {
 			if (updatedTask.getStatus() != null) {
 				existingTask.setStatus(updatedTask.getStatus());
 			}
+			if (updatedTask.getTeam() != null) {
+				existingTask.setTeam(updatedTask.getTeam());
+			}
+			if (updatedTask.getComment() != null) {
+				existingTask.setComment(updatedTask.getComment());
+			}
 			
 			activityService.addActivity(("Updated Task - "+existTask+" to - "+existingTask.getTask()), existingTask.getUserId());
 

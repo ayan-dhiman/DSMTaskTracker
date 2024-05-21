@@ -16,5 +16,7 @@ public class Task {
 	private String task;
 	private String status;
 	private String date;
+	private String Team;
+	private String Comment;
 	private String userId;
 }

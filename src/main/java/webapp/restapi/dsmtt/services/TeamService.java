@@ -25,7 +25,7 @@ public class TeamService {
 	public List<Team> getAllTeams(String userId)
 	{
 		log.info("Sending all teams");
-		System.out.println("-->"+teamRepo.findAllByUserId(userId));
+		System.out.println(userId+"-->"+teamRepo.findAllByUserId(userId));
 		return teamRepo.findAllByUserId(userId);
 	}
 	
