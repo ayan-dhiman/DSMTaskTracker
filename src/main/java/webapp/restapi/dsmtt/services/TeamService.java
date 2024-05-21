@@ -22,7 +22,13 @@ public class TeamService {
 		return teamRepo.save(newTeam);
 	}
 	
-	public List<Team> getAllTeams(String userId)
+//	public List<Team> getAllTeamsByUser(String userId)
+//	{
+//		log.info("Sending all teams");
+//		return teamRepo.findAllByUserId(userId);
+//	}
+	
+	public List<Team> getAllTeams()
 	{
 		log.info("Sending all teams");
 		System.out.println(userId+"-->"+teamRepo.findAllByUserId(userId));
