@@ -19,6 +19,9 @@ public class UserService {
 
 	@Autowired
 	private ActivityService activityService;
+	
+	@Autowired
+	private EmailService emailService;
 
 	public User getUserById(String id) {
 		log.info("Fetching user by id: {}", id);
@@ -40,6 +43,8 @@ public class UserService {
 	public User createUser(User newUser) {
 
 		log.info("Creating new user: {}", newUser.getEmail());
+		
+		//emailService.sendWelcomeMail(newUser.getEmail());
 
 		return userRepo.save(newUser);
 	}
