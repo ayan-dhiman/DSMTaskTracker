@@ -66,4 +66,19 @@ public class TeamService {
 		return false;
 	}
 	
+	public void deleteTeams(List<String> teams)
+	{
+		
+		if(!teams.isEmpty())
+		{
+			for(String teamId : teams) {
+				log.info("Deleting team with id: {}", teamId);
+				if (teamRepo.findById(teamId) != null) {
+					teamRepo.deleteById(teamId);
+				}
+			}
+		}
+		
+	}
+	
 }

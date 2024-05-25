@@ -19,4 +19,6 @@ public class Task {
 	private String userId;
 	private String team;
 	private String comment;
+	private String priority;
+	private String link;
 }

@@ -140,6 +140,7 @@ public class AuthService {
 	    String OTPStored = OTPStoredData.getOTP();
 	    
 	    if (passwordEncoder.matches(enteredOTP, OTPStored)) {
+	    	OTPRepo.deleteByUserId(user.getId());
 	        log.info("OTP validated successfully for user: {}", email);
 	        return true;
 	    } else {

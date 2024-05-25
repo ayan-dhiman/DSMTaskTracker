@@ -59,6 +59,12 @@ public class TaskService {
 			if (updatedTask.getComment() != null) {
 				existingTask.setComment(updatedTask.getComment());
 			}
+			if (updatedTask.getPriority() != null) {
+				existingTask.setPriority(updatedTask.getPriority());
+			}
+			if (updatedTask.getLink() != null) {
+				existingTask.setLink(updatedTask.getLink());
+			}
 			
 			activityService.addActivity(("Updated Task - "+existTask+" to - "+existingTask.getTask()), existingTask.getUserId());
 
