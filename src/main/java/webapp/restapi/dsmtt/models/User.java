@@ -20,8 +20,9 @@ public class User {
 	private String email;
 	
 	private String name;
-	private String role;
-	private String team;
 	private String password;
+	
+	private String createdOn;
+	private String lastLogin;
 	
 }

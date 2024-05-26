@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,8 @@ public class UserService {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	public User getUserById(String id) {
 		log.info("Fetching user by id: {}", id);
@@ -62,13 +65,7 @@ public class UserService {
 				existingUser.setName(updatedUser.getName());
 			}
 			if (updatedUser.getPassword() != null) {
-				existingUser.setPassword(updatedUser.getPassword());
-			}
-			if (updatedUser.getRole() != null) {
-				existingUser.setRole(updatedUser.getRole());
-			}
-			if (updatedUser.getTeam() != null) {
-				existingUser.setTeam(updatedUser.getTeam());
+				existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
 			}
 			activityService.addActivity("Update Account Details", id);
 
@@ -96,12 +93,6 @@ public class UserService {
 			if (updatedUser.getPassword() != null) {
 				existingUser.setPassword(updatedUser.getPassword());
 			}
-			if (updatedUser.getRole() != null) {
-				existingUser.setRole(updatedUser.getRole());
-			}
-			if (updatedUser.getTeam() != null) {
-				existingUser.setTeam(updatedUser.getTeam());
-			}
 			activityService.addActivity("Update Account Details", email);
 
 			return userRepo.save(existingUser);
@@ -121,13 +112,6 @@ public class UserService {
 		}
 		log.error("User not found with id: {}", userId);
 		return false;
-	}
-
-	public List<User> getUsersInSameTeam(String team) {
-
-		log.info("Fetching users in the same team: {}", team);
-
-		return userRepo.findAllByTeam(team);
 	}
 
 }

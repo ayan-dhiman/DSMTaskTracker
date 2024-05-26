@@ -67,7 +67,17 @@ public class AuthService {
 			UserDetails userDetails = userDetailsService.loadUserByUsername(loginReq.getEmail());
 
 			String token = jwtTokenUtil.generateToken(userDetails);
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			
+	        String formattedDateTime = LocalDateTime.now().format(formatter);
 
+			User loggedUser = userRepo.findByEmail(loginReq.getEmail());
+			
+			loggedUser.setLastLogin(formattedDateTime);
+			
+			userRepo.save(loggedUser);
+			
 			log.info("User logged in successfully: {}", userDetails.getUsername());
 
 			return ResponseEntity.ok(new LoginResponse(token));
@@ -87,6 +97,12 @@ public class AuthService {
 		newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 
 		emailService.sendWelcomeMail(newUser.getEmail(), newUser.getName());
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		
+        String formattedDateTime = LocalDateTime.now().format(formatter);
+		
+		newUser.setCreatedOn(formattedDateTime);
 
 		userRepo.save(newUser);
 	}
@@ -140,7 +156,7 @@ public class AuthService {
 	    String OTPStored = OTPStoredData.getOTP();
 	    
 	    if (passwordEncoder.matches(enteredOTP, OTPStored)) {
-	    	OTPRepo.deleteByUserId(user.getId());
+	    	//OTPRepo.deleteByUserId(user.getId());
 	        log.info("OTP validated successfully for user: {}", email);
 	        return true;
 	    } else {
