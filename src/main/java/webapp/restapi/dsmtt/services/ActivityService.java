@@ -32,4 +32,8 @@ public class ActivityService {
 		
 	}
 	
+	public void deleteActivity(String userId) {
+		activityRepo.deleteAllByUserId(userId);;
+	}
+	
 }

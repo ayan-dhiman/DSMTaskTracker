@@ -11,5 +11,7 @@ import webapp.restapi.dsmtt.models.Activity;
 public interface ActivityRepository extends MongoRepository<Activity, String>{
 
 	List<Activity> findAllByUserId(String userId);
+
+	void deleteAllByUserId(String userId);
 	
 }

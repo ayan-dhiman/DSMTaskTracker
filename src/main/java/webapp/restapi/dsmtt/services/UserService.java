@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import webapp.restapi.dsmtt.models.User;
+import webapp.restapi.dsmtt.repo.OTPRepository;
+import webapp.restapi.dsmtt.repo.TaskRepository;
+import webapp.restapi.dsmtt.repo.TeamRepository;
 import webapp.restapi.dsmtt.repo.UserRepository;
 
 @Slf4j
@@ -17,6 +20,12 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private TaskRepository taskRepo;
+	
+	@Autowired
+	private TeamRepository teamRepo;
 
 	@Autowired
 	private ActivityService activityService;
@@ -108,6 +117,8 @@ public class UserService {
 		log.info("Deleting user with id: {}", userId);
 		if (userRepo.findById(userId) != null) {
 			userRepo.deleteById(userId);
+			taskRepo.deleteAllByUserId(userId);
+			teamRepo.deleteAllByUserId(userId);
 			return true;
 		}
 		log.error("User not found with id: {}", userId);

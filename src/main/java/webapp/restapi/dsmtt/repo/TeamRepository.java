@@ -12,4 +12,6 @@ public interface TeamRepository extends MongoRepository<Team, String> {
 	
 	List<Team> findAllByUserId(String userId);
 
+	void deleteAllByUserId(String userId);
+
 }
