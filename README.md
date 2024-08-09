@@ -17,7 +17,7 @@
 
 <h3>Prerequisites</h3>
 <ul>
-  <li>Java 17</li>
+  <li>Java</li>
   <li>Maven</li>
   <li>Docker</li>
 </ul>
