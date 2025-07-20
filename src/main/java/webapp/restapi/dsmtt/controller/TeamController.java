@@ -49,4 +49,10 @@ public class TeamController {
 		return teamService.deleteTeam(teamId);
 	}
 	
+	@DeleteMapping
+	public void deleteTeams(@RequestBody List<String> teams)
+	{
+		teamService.deleteTeams(teams);
+	}
+	
 }

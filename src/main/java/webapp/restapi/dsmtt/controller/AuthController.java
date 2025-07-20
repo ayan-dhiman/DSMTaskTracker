@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import webapp.restapi.dsmtt.models.LoginRequest;
+import webapp.restapi.dsmtt.models.ResetPasswordBody;
 import webapp.restapi.dsmtt.models.User;
 import webapp.restapi.dsmtt.services.AuthService;
 
@@ -38,5 +39,23 @@ public class AuthController {
 	{
 		return authService.verifyEmail(email);
 	}
-	
+    
+    @PostMapping("/generateOTP")
+	public void generateOTP(@RequestParam String email)
+	{
+		authService.generateOTP(email);
+	}
+    
+    @PostMapping("/validateOTP")
+	public boolean validateOTP(@RequestParam String email , @RequestParam String OTP )
+	{
+		return authService.validateOTP(OTP, email);
+	}
+    
+    @PostMapping("/resetPassword")
+	public void resetPassword(@RequestBody ResetPasswordBody body )
+	{
+		authService.resetPassword(body);
+	}
+    
 }

@@ -28,7 +28,7 @@ public class TeamService {
 //		return teamRepo.findAllByUserId(userId);
 //	}
 	
-	public List<Team> getAllTeams()
+	public List<Team> getAllTeams(String userId)
 	{
 		log.info("Sending all teams");
 		System.out.println(userId+"-->"+teamRepo.findAllByUserId(userId));
@@ -64,6 +64,21 @@ public class TeamService {
 		}
 		log.error("Team not found with id: {}", teamId);
 		return false;
+	}
+	
+	public void deleteTeams(List<String> teams)
+	{
+		
+		if(!teams.isEmpty())
+		{
+			for(String teamId : teams) {
+				log.info("Deleting team with id: {}", teamId);
+				if (teamRepo.findById(teamId) != null) {
+					teamRepo.deleteById(teamId);
+				}
+			}
+		}
+		
 	}
 	
 }

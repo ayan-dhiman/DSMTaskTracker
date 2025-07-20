@@ -36,7 +36,7 @@ public class SecurityConfig {
 
         http.csrf(csrf -> csrf.disable())
                 .authorizeRequests().
-                requestMatchers("/auth/login", "/auth/register", "/auth/verifyemail").permitAll()
+                requestMatchers("/auth/login", "/auth/register", "/auth/verifyemail", "/auth/generateOTP", "/auth/validateOTP", "/auth/resetPassword").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

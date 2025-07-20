@@ -62,10 +62,4 @@ public class UserController {
 	    return userService.updateUserByEmaiil(email, updatedUser);
 	}
 	
-	@GetMapping("/team")
-	public List<User> getUsersInSameTeam(@RequestParam String team)
-	{
-		return userService.getUsersInSameTeam(team);
-	}
-	
 }
